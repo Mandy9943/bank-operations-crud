@@ -66,10 +66,10 @@ export class Filter extends Component<{}, IState> {
     // this.handleTriggerFilter();
   };
 
+  /* Filters events */
   private handleDatePickerCahnge = (date: string) => {
     this.setState({ ...this.state, filterDate: date });
   };
-
   private handleTriggerFilter = () => {
     const filterDate = this.state.filterDate;
     if (filterDate !== "") {
@@ -87,7 +87,6 @@ export class Filter extends Component<{}, IState> {
     }
     console.log(filterDate);
   };
-
   private handleSortAmount = () => {
     const newData = this.state.data.sort(
       (dataA, dataB) => dataA.amount - dataB.amount
@@ -95,6 +94,7 @@ export class Filter extends Component<{}, IState> {
     this.setState({ ...this.state, data: [...newData] });
   };
 
+  /* Form Events */
   private handleSubmitForm = (operation: data) => {
     if (this.state.indexData < 0) {
       this.service.addOperation(operation);
@@ -103,6 +103,7 @@ export class Filter extends Component<{}, IState> {
     }
 
     this.updateUIData();
+    this.handleTriggerFilter();
   };
   private handleOnChangeForm = (dataInput: IInputData) => {
     let { name, value } = dataInput;
@@ -112,7 +113,6 @@ export class Filter extends Component<{}, IState> {
       formData: { ...this.state.formData, [name]: value },
     });
   };
-
   private handleDelete = (operation: data) => {
     this.service.deleteOperation(operation);
     this.updateUIData();
